@@ -1,0 +1,405 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/page_bg"
+    android:orientation="vertical">
+
+    <!-- 自绘标题栏：不依赖 ActionBar，边到边显示时也不会遮挡内容 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingStart="20dp"
+        android:paddingTop="18dp"
+        android:paddingEnd="20dp"
+        android:paddingBottom="10dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/app_name"
+            android:textColor="@color/text_primary"
+            android:textSize="22sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="@string/header_subtitle"
+            android:textColor="@color/text_secondary"
+            android:textSize="12sp" />
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:clipToPadding="false"
+        android:fillViewport="true"
+        android:scrollbarStyle="outsideOverlay">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingStart="16dp"
+            android:paddingTop="4dp"
+            android:paddingEnd="16dp"
+            android:paddingBottom="16dp">
+
+            <!-- 状态与开关 -->
+            <LinearLayout style="@style/Card">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <View
+                        android:id="@+id/status_dot"
+                        android:layout_width="10dp"
+                        android:layout_height="10dp"
+                        android:layout_marginEnd="8dp" />
+
+                    <TextView
+                        android:id="@+id/status_text"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/status_idle"
+                        android:textColor="@color/text_primary"
+                        android:textSize="14sp" />
+                </LinearLayout>
+
+                <Button
+                    android:id="@+id/btn_toggle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:text="@string/btn_show" />
+            </LinearLayout>
+
+            <!-- 实时预览 -->
+            <LinearLayout style="@style/Card">
+
+                <TextView
+                    style="@style/CardTitle"
+                    android:text="@string/section_preview" />
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/bg_preview">
+
+                    <com.example.crosshair.CrosshairView
+                        android:id="@+id/preview"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+                </FrameLayout>
+            </LinearLayout>
+
+            <!-- 形状 -->
+            <LinearLayout style="@style/Card">
+
+                <TextView
+                    style="@style/CardTitle"
+                    android:text="@string/section_shape" />
+
+                <RadioGroup
+                    android:id="@+id/shape_group"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <RadioButton
+                        android:id="@+id/shape_dot"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/shape_dot"
+                        android:textColor="@color/text_primary" />
+
+                    <RadioButton
+                        android:id="@+id/shape_ring"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/shape_ring"
+                        android:textColor="@color/text_primary" />
+
+                    <RadioButton
+                        android:id="@+id/shape_cross"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/shape_cross"
+                        android:textColor="@color/text_primary" />
+                </RadioGroup>
+            </LinearLayout>
+
+            <!-- 大小 -->
+            <LinearLayout style="@style/Card">
+
+                <TextView
+                    android:id="@+id/size_label"
+                    style="@style/CardTitle"
+                    android:text="@string/section_size_default" />
+
+                <com.google.android.material.slider.Slider
+                    android:id="@+id/slider_size"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:stepSize="1"
+                    android:value="6"
+                    android:valueFrom="1"
+                    android:valueTo="48"
+                    app:labelBehavior="gone" />
+            </LinearLayout>
+
+            <!-- 透明度 -->
+            <LinearLayout style="@style/Card">
+
+                <TextView
+                    android:id="@+id/alpha_label"
+                    style="@style/CardTitle"
+                    android:text="@string/section_alpha_default" />
+
+                <com.google.android.material.slider.Slider
+                    android:id="@+id/slider_alpha"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:stepSize="1"
+                    android:value="100"
+                    android:valueFrom="5"
+                    android:valueTo="100"
+                    app:labelBehavior="gone" />
+            </LinearLayout>
+
+            <!-- 颜色：预设色块 + RGB 微调 + 手动输入颜色代码 -->
+            <LinearLayout style="@style/Card">
+
+                <TextView
+                    style="@style/CardTitle"
+                    android:text="@string/section_color" />
+
+                <HorizontalScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:scrollbars="none">
+
+                    <LinearLayout
+                        android:id="@+id/swatch_row"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal" />
+                </HorizontalScrollView>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <View
+                        android:id="@+id/color_preview"
+                        android:layout_width="36dp"
+                        android:layout_height="36dp" />
+
+                    <TextView
+                        android:id="@+id/color_hex"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        android:layout_weight="1"
+                        android:text="#FF3B30"
+                        android:textColor="@color/text_primary"
+                        android:textSize="16sp" />
+                </LinearLayout>
+
+                <TextView
+                    style="@style/CardTitle"
+                    android:layout_marginTop="16dp"
+                    android:text="@string/section_custom_color" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <EditText
+                        android:id="@+id/input_hex"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:autofillHints=""
+                        android:hint="@string/hex_hint"
+                        android:imeOptions="actionDone"
+                        android:inputType="textCapCharacters"
+                        android:maxLength="7"
+                        android:maxLines="1"
+                        android:selectAllOnFocus="true"
+                        android:textColor="@color/text_primary"
+                        android:textColorHint="@color/text_secondary"
+                        android:textSize="16sp" />
+
+                    <Button
+                        android:id="@+id/btn_apply_hex"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:text="@string/btn_apply_hex" />
+                </LinearLayout>
+
+                <TextView
+                    style="@style/CardHint"
+                    android:text="@string/color_rgb_hint" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="24dp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/color_r"
+                        android:textColor="@color/text_secondary" />
+
+                    <com.google.android.material.slider.Slider
+                        android:id="@+id/slider_red"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:stepSize="1"
+                        android:value="255"
+                        android:valueFrom="0"
+                        android:valueTo="255"
+                        app:labelBehavior="gone" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="24dp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/color_g"
+                        android:textColor="@color/text_secondary" />
+
+                    <com.google.android.material.slider.Slider
+                        android:id="@+id/slider_green"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:stepSize="1"
+                        android:value="59"
+                        android:valueFrom="0"
+                        android:valueTo="255"
+                        app:labelBehavior="gone" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="24dp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/color_b"
+                        android:textColor="@color/text_secondary" />
+
+                    <com.google.android.material.slider.Slider
+                        android:id="@+id/slider_blue"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:stepSize="1"
+                        android:value="48"
+                        android:valueFrom="0"
+                        android:valueTo="255"
+                        app:labelBehavior="gone" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- 色盘调色 -->
+            <LinearLayout style="@style/Card">
+
+                <TextView
+                    style="@style/CardTitle"
+                    android:text="@string/section_wheel" />
+
+                <com.example.crosshair.ColorWheelView
+                    android:id="@+id/color_wheel"
+                    android:layout_width="match_parent"
+                    android:layout_height="220dp"
+                    android:layout_marginTop="8dp" />
+
+                <TextView
+                    android:id="@+id/brightness_label"
+                    style="@style/CardTitle"
+                    android:layout_marginTop="8dp"
+                    android:text="@string/section_brightness_default" />
+
+                <com.google.android.material.slider.Slider
+                    android:id="@+id/slider_brightness"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:stepSize="1"
+                    android:value="100"
+                    android:valueFrom="0"
+                    android:valueTo="100"
+                    app:labelBehavior="gone" />
+
+                <TextView
+                    style="@style/CardHint"
+                    android:text="@string/wheel_hint" />
+            </LinearLayout>
+
+            <!-- 描边 -->
+            <LinearLayout style="@style/Card">
+
+                <androidx.appcompat.widget.SwitchCompat
+                    android:id="@+id/switch_outline"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/outline_label"
+                    android:textColor="@color/text_primary" />
+
+                <TextView
+                    style="@style/CardHint"
+                    android:text="@string/outline_hint" />
+            </LinearLayout>
+
+            <!-- 其它 -->
+            <LinearLayout style="@style/Card">
+
+                <Button
+                    android:id="@+id/btn_reset"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/btn_reset" />
+
+                <TextView
+                    style="@style/CardHint"
+                    android:layout_marginTop="12dp"
+                    android:text="@string/about_text" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

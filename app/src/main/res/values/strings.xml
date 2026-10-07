@@ -1,0 +1,51 @@
+<resources>
+    <string name="app_name">准心悬浮窗</string>
+    <string name="header_subtitle">固定在屏幕正中心 · 不影响目标游戏或应用</string>
+
+    <string name="status_idle">未开启，准心不会显示</string>
+    <string name="status_running">准心已显示在屏幕正中心</string>
+    <string name="status_no_permission">缺少「显示在其他应用上层」权限</string>
+    <string name="btn_show">开启悬浮准心</string>
+    <string name="btn_hide">关闭悬浮准心</string>
+
+    <string name="section_preview">实时预览</string>
+    <string name="section_shape">准心形状</string>
+    <string name="shape_dot">圆点</string>
+    <string name="shape_ring">圆环</string>
+    <string name="shape_cross">十字</string>
+
+    <string name="section_size">圆点大小：%1$d dp</string>
+    <string name="section_size_default">圆点大小：6 dp</string>
+    <string name="section_alpha">透明度：%1$d%%</string>
+    <string name="section_alpha_default">透明度：100%</string>
+
+    <string name="section_color">颜色</string>
+    <string name="color_rgb_hint">也可以拖动 R / G / B 微调任意颜色</string>
+    <string name="color_r">R</string>
+    <string name="color_g">G</string>
+    <string name="color_b">B</string>
+
+    <string name="section_wheel">色盘调色</string>
+    <string name="wheel_hint">拖动色盘选择色相与饱和度，再配合下面的「明度」调整深浅</string>
+    <string name="section_brightness">明度：%1$d%%</string>
+    <string name="section_brightness_default">明度：100%</string>
+
+    <string name="section_custom_color">手动输入颜色代码</string>
+    <string name="hex_hint">例如 #FF3B30 或 FF3B30</string>
+    <string name="btn_apply_hex">应用</string>
+    <string name="toast_bad_color">颜色代码格式不正确，请输入 #RRGGBB</string>
+
+    <string name="outline_label">深色描边</string>
+    <string name="outline_hint">在浅色背景上更容易看清准心</string>
+
+    <string name="btn_reset">恢复默认设置</string>
+    <string name="about_text">• 准心是系统级悬浮窗，直接叠加在屏幕上显示，不会修改、注入或读取任何目标游戏 / 应用。\n• 准心固定于屏幕正中心，触控完全穿透，不影响操作。\n• 需要授予「显示在其他应用上层」权限；关闭本页面或退到后台后准心仍会保留。\n• 部分应用会主动屏蔽悬浮窗（如部分视频播放器、银行类应用），属于系统行为。</string>
+
+    <string name="toast_need_permission">请先允许「显示在其他应用上层」权限</string>
+
+    <string name="notif_channel">悬浮准心</string>
+    <string name="notif_channel_desc">保持准心显示在其他应用之上</string>
+    <string name="notif_title">准心正在显示</string>
+    <string name="notif_text">点击返回设置，或点「关闭」隐藏准心</string>
+    <string name="notif_stop">关闭</string>
+</resources>
